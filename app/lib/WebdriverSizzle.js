@@ -22,7 +22,8 @@ module.exports = function (driver, selenium) {
         if (sizzleExists) {
 
         } else {
-            sizzleCode = fs.readFileSync(path.join(__dirname, '../../node_modules/sizzle/dist', 'sizzle.min.js'));
+            var sizzlePath = require.resolve('sizzle');
+            sizzleCode = fs.readFileSync(sizzlePath.replace('sizzle.js', 'sizzle.min.js'));
             return driver.executeScript("var module = {exports: {}};\n" + sizzleCode + "\nwindow.Sizzle = module.exports;").then(injectSelector);
         }
     };

@@ -10,7 +10,7 @@ module.exports = function (container, next) {
     var browser = BrowserConfig.getParameter('browser');
 
     if (browser == 'phantomjs') {
-        var phantomBin = Selenium.phantomjsPath + '/phantomjs ';
+        var phantomBin = Selenium.phantomjsPath + ' ';
         var cmd = phantomBin + config.get('garden_dir') + '/app/environment/tests/phantomjs_scenario.js';
         EnvironmentService.testBin(cmd, /phantomjs_ok/ig, function (err, ok) {
             if (!ok) {

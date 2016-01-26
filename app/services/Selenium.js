@@ -5,7 +5,8 @@
  * Licensed under MIT (https://github.com/linkshare/plus.garden/blob/master/LICENSE)
  * ============================================================================== */
 
- var spawn = require('child_process').spawn;
+var spawn = require('child_process').spawn;
+var phantomjs = require('phantomjs');
 var path = require('path');
 var fs = require('fs');
 var http = require("http");
@@ -14,8 +15,10 @@ var os = require('os');
 var Selenium = function (config) {
     this.lockFile = os.tmpdir() + '/SeleniumLockFile';
     this.seleniumPath = require('plus.garden.selenium-standalone').getServerPath();
-    this.phantomjsPath = config.get('garden_dir') + '/node_modules/phantomjs/bin';
     this.chromePath = require('plus.garden.selenium-standalone').getChromeDriverPath();
+
+    this.phantomjsPath = phantomjs.path;
+    config.set('webdriver:capabilities:phantomjs.phantomjs.binary.path', this.phantomjsPath);
 
     this.env = process.env;
     this.env.PATH += ':' + this.phantomjsPath;
